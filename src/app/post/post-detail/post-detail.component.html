@@ -1,0 +1,53 @@
+<div *ngIf="!postId" class="no-post-data">
+  No post Data!! Please Add New Post
+</div>
+<div class="post-detail-content">
+  <h4 class="post-title">Post {{postDetail.id}}</h4>
+  <p class="post-details mb-0">{{postDetail.description}}</p>
+  <div>
+    <carousel>
+      <slide *ngFor="let media of postDetail.media; let index=index">
+
+        <img class="post-images" [src]="preUrl + media.url" style="display: block; width: 100%;" />
+        <div class="carousel-caption">
+        </div>
+      </slide>
+    </carousel>
+    <div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="post-comments">
+
+    <ul class="user-comments">
+      <li class="d-flex justify-content-between" *ngFor="let comment of comments;let i = index">
+
+
+        <div class="d-inline-block">
+          <h6 *ngIf="!isEditable || editableIndex !== i" class="user-name"> {{comment.user.username}}</h6>
+          <p *ngIf="!isEditable || editableIndex !== i" class="user-comments"> {{comment.commentText}}</p>
+
+          <input class="form-control" *ngIf="isEditable && editableIndex === i" type="text" [(ngModel)]="comment.commentText"
+                 [ngModelOptions]="{standalone: true}" />
+
+        </div>
+
+        <div *ngIf="comment !== null || comment.commentText !== null || comment.user.username !== null">
+          <a class="icon-img ml-2" (click)="deleteComment(comment.id)"> <img src="../assets/img/bin.png" /></a>
+          <a class="icon-img" (click)="updateComment(comment,i)"> <img src="../assets/img/edit.png" /></a>
+        </div>
+      </li>
+    </ul>
+
+    <div class="divider"></div>
+    <div class="user-comment-list">
+      <div class="form-group">
+        <input type="text" [(ngModel)]="postComment" placeholder="Add comments" class="form-control" />
+        <button class="btn btn-primary mr-1" (click)="saveComment()"><i class="now-ui-icons ui-1_send"></i></button>
+      </div>
+
+    </div>
+  </div>
+</div>

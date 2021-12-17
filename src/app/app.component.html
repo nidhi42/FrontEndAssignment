@@ -1,0 +1,46 @@
+
+<div class="wrapper">
+  <div class="sidebar" data-color="orange" *ngIf="!hideHeader">
+    <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+    -->
+    <div class="logo">
+      <a href="http://www.creative-tim.com" class="simple-text logo-mini">
+        CT
+      </a>
+
+      <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+        Creative Tim
+      </a>
+    </div>
+
+
+    <div class="sidebar-wrapper" id="sidebar-wrapper">
+      <ul class="nav">
+        <li routerLinkActive="active">
+          <a routerLink="/user">
+
+            <i class="now-ui-icons design_app"></i>
+
+            <p>users</p>
+          </a>
+        </li>
+
+        <li routerLinkActive="active">
+          <a routerLink="/post">
+
+            <i class="now-ui-icons education_atom"></i>
+
+            <p>posts</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div *ngIf="loading" class="loader">
+    <div class="lds-dual-ring"></div>
+  </div>
+  
+  <router-outlet *ngIf="!loading"></router-outlet>
+
+</div>

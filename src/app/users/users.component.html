@@ -1,0 +1,95 @@
+
+<div class="main-panel" id="main-panel">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
+    <div class="container-fluid">
+      <div class="navbar-wrapper">
+        <div class="navbar-toggle">
+          <button type="button" class="navbar-toggler">
+            <span class="navbar-toggler-bar bar1"></span>
+            <span class="navbar-toggler-bar bar2"></span>
+            <span class="navbar-toggler-bar bar3"></span>
+          </button>
+        </div>
+        <a class="navbar-brand" href="#pablo">Table List</a>
+      </div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-bar navbar-kebab"></span>
+        <span class="navbar-toggler-bar navbar-kebab"></span>
+        <span class="navbar-toggler-bar navbar-kebab"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navigation">
+     
+        <ul class="navbar-nav">
+         
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/login']">
+              <i class="now-ui-icons media-1_button-power"></i>
+              <p>
+                <span class="d-lg-none d-md-block">Account</span>
+              </p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- End Navbar -->
+  <div class="panel-header panel-header-sm">
+  </div>
+  <div class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title"> Simple Table</h4>
+            <button class="btn btn-primary" routerLink="add">Add users</button>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                <th>
+                  Name
+                </th>
+                <th>
+                  emailId
+                </th>
+                <th>
+                  Password
+                </th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let user of userList">
+                    <td>
+                      {{user.username}}
+                    </td>
+                    <td>
+                      {{user.email}}
+                    </td>
+                    <td>
+                      <a class="icon-img" (click)="getUserDetail(user.id)">
+                        <img src="../assets/img/edit.png" />
+                      </a>
+                      <a class="icon-img" (click)="deleteUser(user.id)">
+                        <img src="../assets/img/bin.png" />
+                      </a>
+                    </td>
+
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  <div class="main-panel" id="main-panel">
+    <div class="table-responsive">
+     
+    
+    </div>
+  </div>

@@ -1,0 +1,48 @@
+<!-- main app container -->
+
+<div class="main-panel" id="main-panel">
+  <div class="panel-header panel-header-sm">
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <div class="form-row">
+
+          <div class="form-group col-8">
+            <label>First Name</label>
+            <input type="text" name="firstName" class="form-control" [(ngModel)]="userDetail.username" #firstName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }" required>
+            <div *ngIf="f.submitted && firstName.invalid" class="invalid-feedback">
+              <div *ngIf="firstName.errors.required">First Name is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-8">
+            <label>Email</label>
+            <input type="text" name="email" class="form-control" [(ngModel)]="userDetail.email" #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required email>
+            <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+              <div *ngIf="email.errors.required">Email is required</div>
+              <div *ngIf="email.errors.email">Email must be a valid email address</div>
+            </div>
+          </div>
+          </div>
+          <div class="form-row" *ngIf="userId === null">
+            <div class="form-group col-8">
+              <label>Password</label>
+              <input type="password" name="password" class="form-control" [(ngModel)]="userDetail.password" #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required minlength="6">
+              <div *ngIf="f.submitted && password.invalid" class="invalid-feedback">
+                <div *ngIf="password.errors.required">Password is required</div>
+                <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button class="btn btn-primary mr-1" *ngIf="userId === null" [disabled]="!f.form.valid" (click)="onSubmit()">Register</button>
+            <button class="btn btn-primary mr-1" *ngIf="userId !== null" [disabled]="!f.form.valid" (click)="updateUserDetail()">Edit</button>
+            <button class="btn btn-secondary" type="reset">Cancel</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
