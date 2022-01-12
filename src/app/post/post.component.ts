@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
 import { SharedService } from '../../service/shared.service';
 
@@ -14,7 +15,7 @@ export class PostComponent implements OnInit {
   selectedItem = 0;
   user;
   userId;
-  postId: number;
+  postId;
   postData: any;
   postDetails: any;
   selectedPost;
@@ -32,13 +33,15 @@ export class PostComponent implements OnInit {
   isEdit: boolean;
   userName: string;
   isChangeNavigation: boolean;
-/**
- * Creates an instance of documenter.
- */
-  constructor(private sharedService: SharedService, private router: Router, private activatedRoute: ActivatedRoute) {
+  selectedHero?: any;
+  /**
+   * Creates an instance of documenter.
+   */
+  constructor(private sharedService: SharedService, private router: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
     router.events.subscribe((val) => {
       this.isChangeNavigation = true;
     });
+    this.postId = window.location.href.split("/")[5];
   }
 
   ngOnInit(): void {
@@ -62,9 +65,12 @@ export class PostComponent implements OnInit {
         this.isPosts = true;
         this.sharedService.getPosts().subscribe(item => {
           this.postData = item.filter(x => x.user !== null);
-          this.showPosts(this.postData[0]);
-          
-        
+          if (this.postId === null || this.postId === undefined) {
+            this.showPosts(this.postData[0]);
+          } else {
+            let postData = this.postData.find(a => a.id === Number(this.postId));
+            this.showPosts(postData);
+          }
           for (let i = 0; i < this.postData.length; i++) {
             this.postName = this.postData[i].name;
           }
@@ -72,9 +78,9 @@ export class PostComponent implements OnInit {
 
         });
       }
-
     },
       error => {
+        this.toastr.error(error);
       });
   }
 
@@ -86,9 +92,9 @@ export class PostComponent implements OnInit {
   getAllUsers() {
     this.sharedService.getUsers().subscribe(data => {
       this.userList = data;
-
     },
       error => {
+        this.toastr.error(error);
       });
   }
   /**
@@ -96,10 +102,8 @@ export class PostComponent implements OnInit {
    */
   showUserPost() {
     this.uservise = true;
-    this.postData = this.postData.filter(x => x.user.id === this.userId);
-   
-    this.showPosts(this.postData[0]);
-    
+    this.postData = this.postData.filter(x => x.user.id === Number(this.userId));
+    this.selectedHero = this.postData;
     this.isDelete = true;
     this.isEdit = true;
   }
@@ -117,6 +121,7 @@ export class PostComponent implements OnInit {
         this.addedComments = this.addedComments.filter(x => x.post !== null ? x.post.id === this.postDetails.id : x.post);
 
       }).catch((err) => {
+        this.toastr.error(err);
       })
     }
 
@@ -126,7 +131,7 @@ export class PostComponent implements OnInit {
    * Navigate to add new post
    */
   addNewPost() {
-    this.router.navigate(['post', 'add']);
+    this.router.navigate(['/post/add']);
   }
 
   /**
@@ -136,6 +141,7 @@ export class PostComponent implements OnInit {
     this.router.navigate(['/post/edit', Id]);
   }
 
+
   /**
    * Delete Post By Id
    */
@@ -143,8 +149,10 @@ export class PostComponent implements OnInit {
     this.sharedService.changeLoderStatus(true);
     this.sharedService.deletePostById(Id).toPromise().then((result) => {
       this.sharedService.changeLoderStatus(false);
+      this.toastr.success('Post Deleted!!');
+    }, err => {
+      this.toastr.error(err);
     });
     this.showUserPost();
-
   }
 }

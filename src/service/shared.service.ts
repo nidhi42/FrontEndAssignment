@@ -16,7 +16,7 @@ export class SharedService {
   Api: string = `${environment.apiUrl}/auth/local/register`;
   deleteApi: string = `${environment.apiUrl}/users/`;
   postCountApi: string = `${environment.apiUrl}/posts/count`;
-  postsApi: string = `${environment.apiUrl}/posts`;
+  postsApi: string = `${environment.apiUrl}/posts?_limit=-1`;
   private messageSource = new BehaviorSubject('default message');
   currentMessage = this.messageSource.asObservable();
 

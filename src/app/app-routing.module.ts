@@ -40,7 +40,8 @@ const routes: Routes = [
   },
   {
     path: 'post',
-    loadChildren: () => import('./post/post.module').then(m => m.PostModule)
+    
+     loadChildren: './post/post.module#PostModule'
   },
 
 ];

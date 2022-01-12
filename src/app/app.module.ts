@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { PostModule } from './post/post.module';
 import { SharedModule } from '../service/shared.module';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { SharedModule } from '../service/shared.module';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(), 
 
   ],
   exports: [

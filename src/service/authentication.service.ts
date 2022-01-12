@@ -10,7 +10,6 @@ export class AuthenticationService {
     const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
-    debugger
     return this.http.post<any>(`https://strapi-test.promactinfo.com/auth/local`, {
       identifier: email,
       password: password
@@ -19,9 +18,7 @@ export class AuthenticationService {
         console.log(user);
         // login successful if there's a jwt token in the response
         if (user) {
-          debugger
           // store user details and jwt token in local storage to keep user logged in between page refreshes
-          debugger
           localStorage.setItem('currentUser', JSON.stringify(user));
         }
 
@@ -30,7 +27,6 @@ export class AuthenticationService {
   }
   
   logout() {
-    debugger
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
   }

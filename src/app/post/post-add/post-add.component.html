@@ -1,57 +1,58 @@
 <div class="main-panel" id="main-panel">
+  <!--main header component-->
   <div class="panel-header panel-header-sm">
   </div>
+  <!--main header component ends-->
   <div class="content">
     <div class="row">
       <div class="col-md-12">
         <div class="card">
+          <!--add page title-->
           <div class="card-header">
             <h5 class="title">Add Post</h5>
           </div>
+          <!--add page content-->
           <div class="card-body">
-              <div class="row clearfix">
-                <div class="col-md-6">
-                  <div class="form-group">
-
-                    <div *ngFor="let progressInfo of progressInfos" class="mb-2">
-                      <span>{{ progressInfo.name }}</span>
-                    </div>
-
-                        <span class="upload-post-image" *ngIf="!selectedFiles">
-                          <i class="now-ui-icons arrows-1_cloud-upload-94"></i>
-                          <input type="file" placeholder="upload-files" multiple (change)="selectFiles($event)" />
-                        </span>
-                    
-                        <button type="button" class="btn btn-success"
-                                [disabled]="!selectedFiles"
-                                (click)="uploadFiles()">
-                          Upload
-                        </button>
-                    <div class="alert alert-light" role="alert">{{ message }}</div>
-
+            <div class="row clearfix">
+              <!--upload image--> 
+              <div class="col-md-6">
+                <div class="form-group">
+                  <div *ngFor="let progressInfo of progressInfos" class="mb-2">
+                    <span>{{ progressInfo.name }}</span>
                   </div>
-                </div>
-
-
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Description</label>
-                    <textarea class="form-control" name="description" [(ngModel)]="postDescription" placeholder="Enter Description"></textarea>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 pr-1">
-                  <button class="btn btn-primary" *ngIf="postId === null" (click)="addPost()">Save</button>
-                  <button class="btn btn-primary" *ngIf="postId !== null" (click)="addPost()">Update</button>
+                  <span class="upload-post-image" *ngIf="!selectedFiles">
+                    <i class="now-ui-icons arrows-1_cloud-upload-94"></i>
+                    <input type="file" placeholder="upload-files" multiple (change)="selectFiles($event)" />
+                  </span>
+                  <button type="button" class="btn btn-success"
+                          [disabled]="!selectedFiles"
+                          (click)="uploadFiles()">
+                    Upload
+                  </button>
+                  <div class="alert alert-light" role="alert">{{ message }}</div>
                 </div>
               </div>
+            </div>
+            <!--description--> 
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Description</label>
+                  <textarea class="form-control" name="description" [(ngModel)]="postDescription" placeholder="Enter Description"></textarea>
+                </div>
+              </div>
+            </div>
+            <!--save button-->
+            <div class="row">
+              <div class="col-md-6 pr-1">
+                <button class="btn btn-primary" *ngIf="postId === null" (click)="addPost()">Save</button>
+                <button class="btn btn-primary" *ngIf="postId !== null" (click)="addPost()">Update</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      </div>
     </div>
   </div>
+</div>
 

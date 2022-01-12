@@ -1,61 +1,97 @@
 
 
 <div class="main-panel" id="main-panel">
-
-  <div class="post-panel container-fluid">
-   
-    <div class="users_circle-08 mr-1 text-right mt-4"  [ngClass]="{'d-flex justify-content-between' : isEdit}" (click)="showUserPost()">
-     
-      <a class="mt-4 ml-4 d-inline-block back-button" *ngIf="isEdit" (click)="getPostCount()"> <i class="now-ui-icons arrows-1_minimal-left ml-1"></i> Back To All Posts</a>
-      <div class="user-details">
-        <p class="d-inline-block mr-3 text-capitalize text-bold"> {{userName}}</p>
-        <i class="now-ui-icons users_circle-08 d-inline-block align-middle"></i>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
+    <div class="container-fluid">
+      <div class="navbar-wrapper">
+        <div class="navbar-toggle">
+          <button type="button" class="navbar-toggler">
+            <span class="navbar-toggler-bar bar1"></span>
+            <span class="navbar-toggler-bar bar2"></span>
+            <span class="navbar-toggler-bar bar3"></span>
+          </button>
+        </div>
+        <a class="navbar-brand" href="#pablo">Table List</a>
       </div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-bar navbar-kebab"></span>
+        <span class="navbar-toggler-bar navbar-kebab"></span>
+        <span class="navbar-toggler-bar navbar-kebab"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navigation">
 
-    </div>
-    <div class="d-flex align-items-end flex-column">
-      <button class="btn btn-primary mr-1" routerLink="add">Add New Post</button>
-    </div>
+        <ul class="navbar-nav">
 
-    <div class="row clearfix">
-      <div class="col-md-4 left-panel">
-        <ul class="nav nav-tabs flex-column" id="myTab" role="tablist">
-          <li class="nav-item active" *ngFor="let posts of postData; let i = index">
-            <a [routerLink]="['post-detail',posts.id]" class="mb-3 p-3 shadow nav-link" routerLinkActive="active" [ngClass]="{'active': selectedItem === i}" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" (click)="showPosts(posts)">
-              <div class="left-content"> <span class="posts">Post {{posts.id}}  </span></div>
-              <div class="right-content">
-                <span class="comments">
-                  {{posts.comments.length}}
-                  <i class="now-ui-icons ui-2_chat-round">
-                  </i>
-                </span>
-                <span class="icon-img ml-2" *ngIf="isDelete" (click)="deletePostById(posts.id)"> <img src="../assets/img/bin.png" /></span>
-                <span class="icon-img" *ngIf="isEdit" (click)="editPost(posts.id)"> <img src="../assets/img/edit.png" /></span>
-              </div>
-             
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/login']">
+              <i class="now-ui-icons media-1_button-power"></i>
+              <p>
+                <span class="d-lg-none d-md-block">Account</span>
+              </p>
             </a>
-
-
           </li>
-
-
         </ul>
-
       </div>
-      <div class="col-md-8">
-        <div class="tab-content w-100">
-          <div class="tab-pane shadow rounded bg-white p-5 active" id="home" role="tabpanel" aria-labelledby="home-tab">
-            <app-post-detail *ngIf="postId"  [postDetail]="postDetails" [comments]="addedComments"></app-post-detail>
-            <div *ngIf="!postId"  class="no-post-data">
-              No post Data!! Please Add New Post
+    </div>
+  </nav>
+  <!-- End Navbar -->
+  <div class="panel-header panel-header-sm">
+  </div>
+  <div class="content">
+    <div class="row clearfix">
+      <div class="col-md-12">
+      <div class="post-panel container-fluid">
+        <div class="users_circle-08 mr-1 text-right mt-5" [ngClass]="{'d-flex justify-content-between' : isEdit}" (click)="showUserPost()">
+          <a class="mt-4 ml-4 d-inline-block back-button" *ngIf="isEdit" (click)="getPostCount()"> <i class="now-ui-icons arrows-1_minimal-left ml-1"></i> Back To All Posts</a>
+          <div class="user-details">
+            <p class="d-inline-block mr-3 text-capitalize text-bold"> {{userName}}</p>
+            <i class="now-ui-icons users_circle-08 d-inline-block align-middle"></i>
+          </div>
+
+        </div>
+        <div class="d-flex align-items-end flex-column">
+          <button class="btn btn-primary mr-1" routerLink="add">Add New Post</button>
+        </div>
+
+        <div class="row clearfix">
+          <div class="col-md-4 left-panel">
+            <ul class="nav nav-tabs flex-column" id="myTab" role="tablist">
+              <li class="nav-item active" *ngFor="let posts of postData; let i = index">
+                <a [routerLink]="['post-detail',posts.id]" class="mb-3 p-3 shadow nav-link" routerLinkActive="active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" (click)="showPosts(posts)">
+                  <div class="left-content"> <span class="posts">Post {{posts.id}}  </span></div>
+                  <div class="right-content">
+                    <span class="comments">
+                      {{posts.comments.length}}
+                      <i class="now-ui-icons ui-2_chat-round">
+                      </i>
+                    </span>
+                    <span class="icon-img ml-2" *ngIf="isDelete" (click)="deletePostById(posts.id)"> <img src="../assets/img/bin.png" /></span>
+                    <span class="icon-img" *ngIf="isEdit" (click)="editPost(posts.id)"> <img src="../assets/img/edit.png" /></span>
+                  </div>
+                </a>
+
+              </li>
+
+
+            </ul>
+
+          </div>
+          <div class="col-md-8">
+            <div class="tab-content w-100">
+              <div class="tab-pane shadow rounded bg-white p-5 active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <app-post-detail [postDetail]="postDetails" [comments]="addedComments"></app-post-detail>
+
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <div *ngIf="!isPosts">
+        No Posts Yet !!
+      </div>
+        </div>
     </div>
-  </div>
-  <div *ngIf="!isPosts">
-      No Posts Yet !!
   </div>
 </div>
 

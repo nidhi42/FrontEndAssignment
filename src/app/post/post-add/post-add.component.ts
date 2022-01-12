@@ -2,6 +2,7 @@ import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { SharedService } from '../../../service/shared.service';
 import { UploadService } from '../../../service/upload.service';
@@ -34,7 +35,7 @@ export class PostAddComponent implements OnInit {
   constructor(private router: Router,
     private route: ActivatedRoute,
     private sharedService: SharedService,
-    private fb: FormBuilder, private http: HttpClient, private uploadService: UploadService) {
+    private fb: FormBuilder, private http: HttpClient, private uploadService: UploadService, private toastr: ToastrService) {
     
   }
 
@@ -84,6 +85,9 @@ export class PostAddComponent implements OnInit {
       
       this.sharedService.updatePostById(this.postId, reqObj).subscribe(result => {
         this.sharedService.changeLoderStatus(true);
+        this.toastr.success('Post Updated!');
+      }, err => {
+        this.toastr.error(err);
       });
       this.sharedService.changeLoderStatus(false);
 
@@ -110,6 +114,7 @@ export class PostAddComponent implements OnInit {
   selectFiles(e): void {
     this.progressInfos = [];
     this.selectedFiles = e.target.files;
+    this.toastr.success('Image Selected Please Press Upload button!');
   }
 
 /**
@@ -119,8 +124,10 @@ export class PostAddComponent implements OnInit {
     this.uploadService.upload(file).subscribe(
       (response: any) => {
         this.progressInfos[idx] = response[0];
-      },
+        this.toastr.success('Image Uploaded!');
+      }, 
       err => {
+        this.toastr.error(err);
         this.progressInfos[idx].value = 0;
         this.message = 'Could not upload the file:' + file.name;
       });

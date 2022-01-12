@@ -1,12 +1,10 @@
-<div *ngIf="!postId" class="no-post-data">
-  No post Data!! Please Add New Post
-</div>
+
 <div class="post-detail-content">
-  <h4 class="post-title">Post {{postDetail.id}}</h4>
-  <p class="post-details mb-0">{{postDetail.description}}</p>
+  <h4 class="post-title">Post {{postDetail?.id}}</h4>
+  <p class="post-details mb-0">{{postDetail?.description}}</p>
   <div>
     <carousel>
-      <slide *ngFor="let media of postDetail.media; let index=index">
+      <slide *ngFor="let media of postDetail?.media; let index=index">
 
         <img class="post-images" [src]="preUrl + media.url" style="display: block; width: 100%;" />
         <div class="carousel-caption">
@@ -26,8 +24,8 @@
 
 
         <div class="d-inline-block">
-          <h6 *ngIf="!isEditable || editableIndex !== i" class="user-name"> {{comment.user.username}}</h6>
-          <p *ngIf="!isEditable || editableIndex !== i" class="user-comments"> {{comment.commentText}}</p>
+          <h6 *ngIf="!isEditable || editableIndex !== i || comment !== null" class="user-name"> {{comment.user?.username}}</h6>
+          <p *ngIf="!isEditable || editableIndex !== i || comment !== null" class="user-comments"> {{comment?.commentText}}</p>
 
           <input class="form-control" *ngIf="isEditable && editableIndex === i" type="text" [(ngModel)]="comment.commentText"
                  [ngModelOptions]="{standalone: true}" />

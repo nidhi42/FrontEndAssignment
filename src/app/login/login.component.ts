@@ -51,12 +51,13 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-    this.loading = true;
+
     this.sharedService.changeLoderStatus(true);
     this.authenticationService.loginUser(this.f.email.value, this.f.password.value).subscribe(data => {
-      this.sharedService.changeLoderStatus(false);
+     
       this.loginForm = data;
       this.router.navigate([this.returnUrl]);
+      this.sharedService.changeLoderStatus(false);
     },
       error => {
         this.error = "Data entered is invalid";

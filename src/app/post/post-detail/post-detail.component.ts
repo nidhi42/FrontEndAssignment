@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { filter, map, mergeMap } from 'rxjs/operators'
 import { environment } from '../../../environments/environment';
 import { SharedService } from '../../../service/shared.service';
@@ -27,7 +28,7 @@ export class PostDetailComponent implements OnInit {
   /**
    * Creates an instance of documenter.
    */
-  constructor(private router: Router, private route: ActivatedRoute, private sharedService: SharedService) {
+  constructor(private router: Router, private route: ActivatedRoute, private sharedService: SharedService, private toastr: ToastrService) {
     this.preUrl = environment.apiUrl;
   }
 
@@ -37,8 +38,8 @@ export class PostDetailComponent implements OnInit {
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.userId = this.user.user.id;
-    console.log(this.comments);
-    this.postId = this.postDetail.id;
+   
+    this.postId = this.postDetail?.id;
 
     this.postDetail.comments = this.postDetail.comments.filter(x => x.commentText !== null);
   }
@@ -52,9 +53,11 @@ export class PostDetailComponent implements OnInit {
     this.editableIndex = this.isEditable ? i : -1;
     if (!this.isEditable) {
       this.sharedService.updateComments(comment).subscribe(result => {
-        alert("data updated");
-
-      });
+        this.toastr.success('User Comment Updated!');
+      },
+        err => {
+          this.toastr.error(err);
+        });
     }
   }
 
@@ -65,6 +68,9 @@ export class PostDetailComponent implements OnInit {
     this.sharedService.changeLoderStatus(true);
     this.sharedService.deleteCommentsById(commentId).toPromise().then((result) => {
       this.sharedService.changeLoderStatus(false);
+      this.toastr.success('User Comment Deleted!');
+    }, err => {
+      this.toastr.error(err);
     });
     this.comments = this.comments.filter(item => item.id !== commentId);
     this.comments.length;
@@ -84,8 +90,9 @@ export class PostDetailComponent implements OnInit {
     }
     this.sharedService.addComment(reqObj).toPromise().then((result) => {
       this.sharedService.changeLoderStatus(false);
+      this.toastr.success('User Comment Added!');
     }).catch((err) => {
-      console.log(err);
+      this.toastr.error(err);
       this.sharedService.changeLoderStatus(false);
     })
   }
