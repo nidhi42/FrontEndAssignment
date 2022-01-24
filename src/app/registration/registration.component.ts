@@ -33,6 +33,7 @@ export class RegistrationComponent implements OnInit {
    */
   onSubmit() {
     this.sharedService.changeLoderStatus(true);
+
     this.sharedService.registerationUser(this.registrationDetail).subscribe(result => {
       this.sharedService.changeLoderStatus(false);
       this.registrationDetail = result;

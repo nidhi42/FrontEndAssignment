@@ -10,7 +10,7 @@ import { SharedService } from '../../../service/shared.service';
   styleUrls: ['./post-detail.component.scss']
 })
 export class PostDetailComponent implements OnInit {
-  postId: number;
+  postId: string;
   user;
   userId;
   preUrl: string;
@@ -39,9 +39,9 @@ export class PostDetailComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.userId = this.user.user.id;
    
-    this.postId = this.postDetail?.id;
+    this.postId = window.location.href.split("/")[5];
 
-    this.postDetail.comments = this.postDetail.comments.filter(x => x.commentText !== null);
+    this.postDetail.comments = this.postDetail?.comments.filter(x => x.commentText !== null);
   }
   isEditable: boolean;
   editableIndex: number;

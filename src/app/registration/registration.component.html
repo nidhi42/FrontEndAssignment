@@ -23,7 +23,7 @@
                     <div class="form-group text-left">
                       <label>Username</label>
                       <input type="text" name="userName" class="form-control" [(ngModel)]="registrationDetail.username" #userName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && userName.invalid }" required>
-                      <div *ngIf="f.submitted && userName.invalid" class="invalid-feedback">
+                      <div *ngIf="userName.invalid" class="invalid-feedback">
                         <div *ngIf="userName.errors.required">User Name is required</div>
                       </div>
                     </div>
@@ -32,7 +32,7 @@
                     <div class="form-group text-left">
                       <label>Email</label>
                       <input type="text" name="email" class="form-control" [(ngModel)]="registrationDetail.email" #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required email>
-                      <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+                      <div *ngIf="email.invalid" class="invalid-feedback">
                         <div *ngIf="email.errors.required">Email is required</div>
                         <div *ngIf="email.errors.email">Email must be a valid email address</div>
                       </div>
@@ -42,8 +42,8 @@
                     <div class="form-group text-left">
                       <label for="password">Password</label>
                       <input type="password" name="password" class="form-control" [(ngModel)]="registrationDetail.password" #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required>
-                      <div *ngIf="f.submitted && password.invalid" class="invalid-feedback">
-                        <div *ngIf="password.errors.required">User Name is required</div>
+                      <div *ngIf="password.invalid" class="invalid-feedback">
+                        <div *ngIf="password.errors.required">Password is required</div>
                       </div>
                     </div>
                   </div>
@@ -51,7 +51,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
-                      <button class="btn btn-primary" (click)="onSubmit()">Register</button>
+                      <button class="btn btn-primary">Register</button>
                       <a class="d-inline-block pl-1 font-1" [routerLink]="['/login']">Already Have an Account?</a>
                     </div>
                   </div>

@@ -77,19 +77,26 @@
             </ul>
 
           </div>
-          <div class="col-md-8">
+          <div class="col-md-8" *ngIf="!isPostShow">
             <div class="tab-content w-100">
               <div class="tab-pane shadow rounded bg-white p-5 active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <app-post-detail [postDetail]="postDetails" [comments]="addedComments"></app-post-detail>
+                <app-post-detail  [postDetail]="postDetails" [comments]="addedComments"></app-post-detail>
 
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-12" *ngIf="isPostShow">
+            <div class="tab-content w-100">
+              <div class="tab-pane shadow rounded bg-white p-5 active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+                No Posts Yet !!
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div *ngIf="!isPosts">
-        No Posts Yet !!
-      </div>
+          </div>
+
         </div>
     </div>
   </div>

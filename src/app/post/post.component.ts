@@ -11,6 +11,7 @@ import { SharedService } from '../../service/shared.service';
 })
 export class PostComponent implements OnInit {
   isPosts: boolean;
+  isPostShow: boolean = false;
   postCount: number;
   selectedItem = 0;
   user;
@@ -30,8 +31,9 @@ export class PostComponent implements OnInit {
   images = [];
   album;
   userVisePost;
-  isEdit: boolean;
+  isEdit = false;
   userName: string;
+  isPost= false;
   isChangeNavigation: boolean;
   selectedHero?: any;
   /**
@@ -103,9 +105,22 @@ export class PostComponent implements OnInit {
   showUserPost() {
     this.uservise = true;
     this.postData = this.postData.filter(x => x.user.id === Number(this.userId));
-    this.selectedHero = this.postData;
-    this.isDelete = true;
-    this.isEdit = true;
+    if (this.postData !== undefined && this.postData !== null && this.postData.length > 0) {
+      this.showPosts(this.postData[0]);
+      this.isPostShow = false;
+    } else {
+      this.isPostShow = true;
+    }
+    if (this.postId === null || this.postId === undefined) {
+      this.isDelete = false;
+      this.isEdit = false;
+    } else {
+     
+      this.isDelete = true;
+      this.isEdit = true;
+    }
+
+
   }
 
   /**
@@ -115,6 +130,7 @@ export class PostComponent implements OnInit {
     this.postId = postData.id;
     this.postDetails = postData;
     if (this.postData !== null) {
+      this.isPostShow = false;
       this.sharedService.getComments().toPromise().then((result) => {
         this.addedComments = result;
         this.addedComments = this.addedComments.filter(x => x.user !== null || x.commentText !== null);
@@ -123,6 +139,8 @@ export class PostComponent implements OnInit {
       }).catch((err) => {
         this.toastr.error(err);
       })
+    } else {
+      this.isPostShow = true;
     }
 
   }
